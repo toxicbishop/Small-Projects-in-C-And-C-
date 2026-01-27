@@ -1,18 +1,18 @@
-# 🎮 Small Projects in C
+# Small Projects in C
 
 A collection of fun and educational C programming projects. These projects are great for learning C fundamentals, practicing algorithms, and having some fun with console-based applications!
 
 ## 📁 Projects Included
 
-| Project                             | Description                                              | Folder                          |
-| ----------------------------------- | -------------------------------------------------------- | ------------------------------- |
-| **🔢 Compound Interest Calculator** | Calculate compound interest with customizable parameters | `Compound-Interest-Calculator/` |
-| **⏰ Digital Clock**                | A real-time digital clock display in the console         | `Digital-Clock/`                |
-| **🎯 Number Guessing Game**         | Test your luck by guessing the randomly generated number | `Number-Guessing-Game/`         |
-| **✊ Rock Paper Scissors**          | Classic game against the computer                        | `Rock-Paper-Scissors/`          |
-| **🏦 Banking System**               | A simple banking system with account management          | `Banking-System/`               |
-| **❓ Quiz Game**                    | Test your knowledge with an interactive quiz             | `Quiz-Game/`                    |
-| **⭕ Circle Program**               | Calculate circle properties (area, circumference, etc.)  | `Circle-Program/`               |
+| Project                          | Description                                              | Folder                          |
+| -------------------------------- | -------------------------------------------------------- | ------------------------------- |
+| **Compound Interest Calculator** | Calculate compound interest with customizable parameters | `Compound-Interest-Calculator/` |
+| **Digital Clock**                | A real-time digital clock display in the console         | `Digital-Clock/`                |
+| **Number Guessing Game**         | Test your luck by guessing the randomly generated number | `Number-Guessing-Game/`         |
+| **Rock Paper Scissors**          | Classic game against the computer                        | `Rock-Paper-Scissors/`          |
+| **Banking System**               | A simple banking system with account management          | `Banking-System/`               |
+| **Quiz Game**                    | Test your knowledge with an interactive quiz             | `Quiz-Game/`                    |
+| **Circle Program**               | Calculate circle properties (area, circumference, etc.)  | `Circle-Program/`               |
 
 ## 📂 Project Structure
 
@@ -78,7 +78,7 @@ gcc Num-guessing-game.c -o Num-guessing-game
 program-name.exe
 ```
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 These projects help you practice:
 
@@ -90,7 +90,7 @@ These projects help you practice:
 - ✅ User input handling
 - ✅ Time and date functions
 
-## 🚀 Getting Started
+## Getting Started
 
 1. Clone the repository:
 
@@ -112,13 +112,13 @@ These projects help you practice:
 
 4. Compile and run!
 
-## 📝 License
+## License
 
 Feel free to use these projects for learning and personal use!
 
-## 👨‍💻 Author
+## Author
 
-Made with ❤️ by [toxicbishop](https://github.com/toxicbishop)
+Made by [toxicbishop](https://github.com/toxicbishop)
 
 ---
 
