@@ -101,14 +101,11 @@ These projects help you practice:
    cd Number-Guessing-Game
    ```
 
-4. Compile and run!
+4. Compile and run.
 
 ## License
 
 Feel free to use these projects for learning and personal use!
 
-## Author
-
-Made by [toxicbishop](https://github.com/toxicbishop) ![favicon](favicon-96x96.png)
-
+---
 ⭐ **Star this repo if you found it helpful!**
