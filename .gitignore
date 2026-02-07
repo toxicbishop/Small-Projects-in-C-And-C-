@@ -1,3 +1,17 @@
+# Compiled executables
 *.exe
 *.o
 *.out
+*.dll
+*.so
+*.dylib
+*.obj
+
+# Temp files
+tempCodeRunnerFile.*
+
+# Logs
+*.log
+
+# Editor config
+.vscode/
