@@ -1,4 +1,4 @@
-# Small Projects in C
+# Small Projects in C & C++
 
 A collection of fun and educational C programming projects. These projects are great for learning C fundamentals, practicing algorithms, and having some fun with console-based applications!
 
