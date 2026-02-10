@@ -303,6 +303,30 @@ While Caesar Cipher is not secure for actual use, the **concepts demonstrated** 
 
 ---
 
+## 7. 🔢 Number Encryption
+
+ **Test:** Encrypt text containing numbers with shift 1
+
+ **Input:**
+
+ ```text
+ Call me at 555-0199 in 2026!
+ ```
+
+ **Output (Shift 1):**
+
+ ```text
+ Dbmm nf bu 666-1200 jo 3137!
+ ```
+
+ **Features Demonstrated:**
+
+- ✅ Numbers 0-9 are shifted (5→6, 9→0)
+- ✅ Formatting preserved (dashes, spaces)
+- ✅ Combined with letter encryption
+
+ ---
+
 ## ✨ Summary
 
 All 6 requested features have been successfully implemented and tested:

@@ -507,8 +507,11 @@ char encryptChar(char ch, int shift) {
         return ((ch - 'A' + shift) % 26) + 'A';
     } else if (islower(ch)) {
         return ((ch - 'a' + shift) % 26) + 'a';
+    } else if (isdigit(ch)) {
+        // Encrypt digits 0-9 with wrapping
+        return ((ch - '0' + shift) % 10) + '0';
     }
-    return ch; // Non-alphabetic characters remain unchanged
+    return ch; // Non-alphanumeric characters remain unchanged
 }
 
 char decryptChar(char ch, int shift) {
@@ -516,8 +519,13 @@ char decryptChar(char ch, int shift) {
         return ((ch - 'A' - shift + 26) % 26) + 'A';
     } else if (islower(ch)) {
         return ((ch - 'a' - shift + 26) % 26) + 'a';
+    } else if (isdigit(ch)) {
+        // Decrypt digits 0-9 with wrapping (handle negative modulo)
+        int val = (ch - '0' - shift) % 10;
+        if (val < 0) val += 10;
+        return val + '0';
     }
-    return ch; // Non-alphabetic characters remain unchanged
+    return ch; // Non-alphanumeric characters remain unchanged
 }
 
 void displayFileContent(const char* filename) {
@@ -555,12 +563,13 @@ void showFileStats(const char* filename) {
     }
     
     long fileSize = getFileSize(filename);
-    int charCount = 0, letterCount = 0, lineCount = 0;
+    int charCount = 0, letterCount = 0, numberCount = 0, lineCount = 0;
     char ch;
     
     while ((ch = fgetc(file)) != EOF) {
         charCount++;
         if (isalpha(ch)) letterCount++;
+        if (isdigit(ch)) numberCount++;
         if (ch == '\n') lineCount++;
     }
     fclose(file);
@@ -570,6 +579,7 @@ void showFileStats(const char* filename) {
     printf("📏 File size:      %ld bytes\n", fileSize);
     printf("📝 Total chars:    %d\n", charCount);
     printf("🔤 Letters:        %d\n", letterCount);
+    printf("🔢 Numbers:        %d\n", numberCount);
     printf("📄 Lines:          %d\n", lineCount);
 }
 

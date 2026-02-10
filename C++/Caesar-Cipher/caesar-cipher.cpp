@@ -20,6 +20,8 @@ private:
             return ((ch - 'A' + shift) % 26) + 'A';
         } else if (islower(ch)) {
             return ((ch - 'a' + shift) % 26) + 'a';
+        } else if (isdigit(ch)) {
+            return ((ch - '0' + shift) % 10) + '0';
         }
         return ch;
     }
@@ -29,6 +31,10 @@ private:
             return ((ch - 'A' - shift + 26) % 26) + 'A';
         } else if (islower(ch)) {
             return ((ch - 'a' - shift + 26) % 26) + 'a';
+        } else if (isdigit(ch)) {
+            int val = (ch - '0' - shift) % 10;
+            if (val < 0) val += 10;
+            return val + '0';
         }
         return ch;
     }
@@ -38,6 +44,10 @@ private:
             return ((ch - 'A' - s + 26) % 26) + 'A';
         } else if (islower(ch)) {
             return ((ch - 'a' - s + 26) % 26) + 'a';
+        } else if (isdigit(ch)) {
+            int val = (ch - '0' - s) % 10;
+            if (val < 0) val += 10;
+            return val + '0';
         }
         return ch;
     }
@@ -241,12 +251,13 @@ public:
         long fileSize = st.st_size;
         
         file.seekg(0);
-        int charCount = 0, letterCount = 0, lineCount = 0;
+        int charCount = 0, letterCount = 0, numberCount = 0, lineCount = 0;
         char ch;
         
         while (file.get(ch)) {
             charCount++;
             if (isalpha(ch)) letterCount++;
+            if (isdigit(ch)) numberCount++;
             if (ch == '\n') lineCount++;
         }
         file.close();
@@ -256,6 +267,7 @@ public:
         cout << "📏 File size:      " << fileSize << " bytes" << endl;
         cout << "📝 Total chars:    " << charCount << endl;
         cout << "🔤 Letters:        " << letterCount << endl;
+        cout << "🔢 Numbers:        " << numberCount << endl;
         cout << "📄 Lines:          " << lineCount << endl;
     }
 };

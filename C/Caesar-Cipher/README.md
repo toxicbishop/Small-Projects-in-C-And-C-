@@ -153,7 +153,7 @@ View detailed info:
 - File size in bytes
 - Total character count
 - Alphabetic letter count
-- Number of lines
+- Number of lines (and digits!)
 
 ### 6. Performance Tracking
 
@@ -168,7 +168,7 @@ A `sample.txt` file is included for testing all features!
 ## Technical Details
 
 - **Algorithm**: Caesar Cipher (Substitution Cipher)
-- **Supported Characters**: A-Z, a-z (case preserved)
+- **Supported Characters**: A-Z, a-z, 0-9 (case preserved, numbers wrapped)
 - **Non-alphabetic Characters**: Preserved unchanged
 - **Shift Range**: 1-25
 - **ROT13**: Special case with shift=13 (self-inverse property)
