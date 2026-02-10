@@ -1,20 +1,34 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <cctype>
-#include <limits>
-#include <ctime>
-#include <algorithm>
-#include <iomanip>
-#include <sys/stat.h>
+/*
+ * Enhanced Caesar Cipher Tool (C++ Version)
+ * 
+ * Features:
+ * - Object-Oriented Design (Classes for Logic, File Ops, and App)
+ * - File Encryption/Decryption
+ * - Text Encryption/Decryption
+ * - Brute Force Cracking
+ * - Frequency Analysis
+ * - Batch Processing
+ */
+
+#include <iostream>  // Input/output stream objects
+#include <fstream>   // File stream objects
+#include <string>    // String class
+#include <vector>    // Dynamic array container
+#include <cctype>    // Character handling functions
+#include <limits>    // Numeric limits
+#include <ctime>     // Time functions for performance tracking
+#include <algorithm> // Algorithms like max_element
+#include <iomanip>   // Input/output manipulators (setw, setprecision)
+#include <sys/stat.h> // File status
 
 using namespace std;
 
+// Core logic for Caesar Cipher operations
 class CaesarCipher {
 private:
-    int shift;
+    int shift; // Private member to store the shift value
     
+    // Helper: Encrypts a single character
     char encryptChar(char ch) const {
         if (isupper(ch)) {
             return ((ch - 'A' + shift) % 26) + 'A';
@@ -23,9 +37,10 @@ private:
         } else if (isdigit(ch)) {
             return ((ch - '0' + shift) % 10) + '0';
         }
-        return ch;
+        return ch; // Non-alphanumeric chars unchanged
     }
     
+    // Helper: Decrypts a single character
     char decryptChar(char ch) const {
         if (isupper(ch)) {
             return ((ch - 'A' - shift + 26) % 26) + 'A';
@@ -39,6 +54,7 @@ private:
         return ch;
     }
     
+    // Helper: Decrypts character with a specific test shift (for brute force)
     char decryptCharWithShift(char ch, int s) const {
         if (isupper(ch)) {
             return ((ch - 'A' - s + 26) % 26) + 'A';
@@ -53,15 +69,18 @@ private:
     }
     
 public:
+    // Constructor with default shift of 3
     CaesarCipher(int s = 3) : shift(s) {}
     
+    // Setter for shift value
     void setShift(int s) {
         shift = s;
     }
     
+    // Encrypts source file to destination file
     bool encryptFile(const string& inputFile, const string& outputFile) {
-        ifstream inFile(inputFile);
-        ofstream outFile(outputFile);
+        ifstream inFile(inputFile);  // Open for reading
+        ofstream outFile(outputFile); // Open for writing
         
         if (!inFile.is_open()) {
             cerr << "\n❌ Error: Cannot open input file '" << inputFile << "'" << endl;
@@ -74,6 +93,7 @@ public:
         }
         
         char ch;
+        // Process file char by char
         while (inFile.get(ch)) {
             outFile.put(encryptChar(ch));
         }
@@ -83,6 +103,7 @@ public:
         return true;
     }
     
+    // Decrypts source file to destination file
     bool decryptFile(const string& inputFile, const string& outputFile) {
         ifstream inFile(inputFile);
         ofstream outFile(outputFile);
@@ -98,6 +119,7 @@ public:
         }
         
         char ch;
+        // Process file char by char using decryptChar logic
         while (inFile.get(ch)) {
             outFile.put(decryptChar(ch));
         }
@@ -107,6 +129,7 @@ public:
         return true;
     }
     
+    // Brute force attack: Tries all possible shifts (1-25)
     void bruteForceDecrypt(const string& inputFile) {
         ifstream inFile(inputFile);
         
@@ -115,18 +138,20 @@ public:
             return;
         }
         
+        // Read entire file into string
         string content((istreambuf_iterator<char>(inFile)), istreambuf_iterator<char>());
         inFile.close();
         
         cout << "\n🔨 Trying all 25 possible shifts:" << endl;
         cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" << endl << endl;
         
+        // Try every shift and print partial result
         for (int s = 1; s <= 25; s++) {
             cout << "Shift " << setw(2) << s << ": ";
             
             int charCount = 0;
             for (char ch : content) {
-                if (charCount >= 60) break;
+                if (charCount >= 60) break; // Limit preview length
                 char decrypted = decryptCharWithShift(ch, s);
                 if (decrypted == '\n' || decrypted == '\r') break;
                 cout << decrypted;
@@ -138,6 +163,7 @@ public:
         cout << "\n💡 Tip: Look for readable text to find the correct shift!" << endl;
     }
     
+    // Analyzes letter frequency (useful for cryptanalysis)
     void frequencyAnalysis(const string& inputFile) {
         ifstream file(inputFile);
         
@@ -146,10 +172,11 @@ public:
             return;
         }
         
-        vector<int> freq(26, 0);
+        vector<int> freq(26, 0); // Vector to store counts of 26 letters
         int totalLetters = 0;
         char ch;
         
+        // Count occurrences of each letter
         while (file.get(ch)) {
             if (isalpha(ch)) {
                 freq[toupper(ch) - 'A']++;
@@ -188,14 +215,16 @@ public:
         cout << "\n💡 In English, common letters are: E, T, A, O, I, N" << endl;
     }
     
+    // ROT13 is a special Caesar cipher with shift 13
     bool rot13File(const string& inputFile, const string& outputFile) {
         int oldShift = shift;
-        shift = 13;
+        shift = 13; // Temporarily set shift to 13
         bool result = encryptFile(inputFile, outputFile);
-        shift = oldShift;
+        shift = oldShift; // Restore original shift
         return result;
     }
     
+    // Encrypts a string directly (for quick text operations)
     string encryptText(const string& text) const {
         string result;
         for (char ch : text) {
@@ -204,6 +233,7 @@ public:
         return result;
     }
     
+    // Decrypts a string directly
     string decryptText(const string& text) const {
         string result;
         for (char ch : text) {
@@ -212,6 +242,7 @@ public:
         return result;
     }
     
+    // Displays file content (first 50 lines)
     void displayFileContent(const string& filename) {
         ifstream file(filename);
         
@@ -225,6 +256,7 @@ public:
         
         string line;
         int lineCount = 0;
+        // Read line by line with limit
         while (getline(file, line) && lineCount < 50) {
             cout << line << endl;
             lineCount++;
@@ -238,6 +270,7 @@ public:
         file.close();
     }
     
+    // Shows file statistics (size, counts)
     void showFileStats(const string& filename) {
         ifstream file(filename, ios::binary);
         
@@ -246,6 +279,7 @@ public:
             return;
         }
         
+        // Get file size efficiently using stat
         struct stat st;
         stat(filename.c_str(), &st);
         long fileSize = st.st_size;
@@ -254,6 +288,7 @@ public:
         int charCount = 0, letterCount = 0, numberCount = 0, lineCount = 0;
         char ch;
         
+        // Scan file content for stats
         while (file.get(ch)) {
             charCount++;
             if (isalpha(ch)) letterCount++;
@@ -272,12 +307,15 @@ public:
     }
 };
 
+// Utility class for file path and extension operations
 class FileHelper {
 public:
+    // Appends .enc to filename
     static string addEncExtension(const string& filename) {
         return filename + ".enc";
     }
     
+    // Removes .enc from filename if present
     static string removeEncExtension(const string& filename) {
         if (filename.length() > 4 && filename.substr(filename.length() - 4) == ".enc") {
             return filename.substr(0, filename.length() - 4);
@@ -285,20 +323,24 @@ public:
         return filename;
     }
     
+    // Checks if filename ends with .enc
     static bool hasEncExtension(const string& filename) {
         return filename.length() > 4 && filename.substr(filename.length() - 4) == ".enc";
     }
     
+    // Checks if a file exists on disk
     static bool fileExists(const string& filename) {
         ifstream file(filename);
         return file.good();
     }
 };
 
+// Application Class: Handles User Interface and Menu Logic
 class CaesarCipherApp {
 private:
-    CaesarCipher cipher;
+    CaesarCipher cipher; // Instance of the cipher logic class
     
+    // Clears terminal screen based on OS
     void clearScreen() {
         #ifdef _WIN32
             system("cls");
@@ -334,20 +376,24 @@ private:
         cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" << endl << endl;
     }
     
+    // Prompts user for a shift value (1-25) with validation
     int getValidShift() {
         int shift;
         while (true) {
             cout << "Enter shift value (1-25): ";
             if (cin >> shift && shift >= 1 && shift <= 25) {
+                // Clear buffer after valid input
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 return shift;
             }
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            // Handle invalid input (e.g. letters)
+            cin.clear(); // Clear error flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard bad input
             cout << "❌ Invalid! Enter a number between 1 and 25." << endl;
         }
     }
     
+    // Handles encyption of multiple files at once
     void batchEncrypt() {
         cout << "\n📂 BATCH ENCRYPT FILES" << endl;
         cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" << endl;
@@ -362,6 +408,7 @@ private:
         }
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         
+        // Get shift once for all files
         cipher.setShift(getValidShift());
         
         vector<string> files(numFiles);
@@ -393,6 +440,7 @@ private:
         cout << "\n🎉 Batch encryption complete! " << successCount << "/" << numFiles << " files processed." << endl;
     }
     
+    // Handles decryption of multiple files at once
     void batchDecrypt() {
         cout << "\n📂 BATCH DECRYPT FILES" << endl;
         cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" << endl;
@@ -463,6 +511,7 @@ private:
     }
     
 public:
+    // Main application loop
     void run() {
         int choice;
         string inputFile, outputFile, text;
@@ -472,14 +521,15 @@ public:
             displayMenu();
             
             cout << "Enter your choice (1-13): ";
+            // Input validation
             if (!(cin >> choice)) {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.clear(); // Reset error flags
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard bad input
                 cout << "\n❌ Invalid input! Press Enter to continue...";
                 cin.get();
                 continue;
             }
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Consume newline
             
             if (choice == 13) {
                 cout << "\n👋 Thank you for using Enhanced Caesar Cipher! Goodbye!" << endl;
@@ -663,8 +713,9 @@ public:
     }
 };
 
+// Program Entry Point
 int main() {
-    CaesarCipherApp app;
-    app.run();
+    CaesarCipherApp app; // Create application instance
+    app.run();           // Start the application loop
     return 0;
 }
