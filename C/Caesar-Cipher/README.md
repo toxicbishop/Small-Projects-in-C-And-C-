@@ -1,16 +1,33 @@
-# Caesar Cipher - File Encryption/Decryption
+# Caesar Cipher - Enhanced File Encryption/Decryption
 
-A powerful Caesar Cipher implementation in C for encrypting and decrypting text files!
+A comprehensive Caesar Cipher implementation in C with advanced features for encryption, decryption, and cryptanalysis!
 
-## Features
+## 🌟 Features
+
+### 📝 Basic Operations
 
 - 🔒 **File Encryption** - Encrypt entire text files with custom shift values
 - 🔓 **File Decryption** - Decrypt encrypted files back to original text
-- 👁️ **File Viewer** - Preview file contents directly in the application
-- 📊 **Customizable Shift** - Choose any shift value (1-25)
-- ✨ **User-Friendly Menu** - Clean, intuitive interface
-- 🛡️ **Input Validation** - Robust error handling and validation
-- 📚 **Educational Info** - Learn about the Caesar Cipher algorithm
+- 🔄 **ROT13** - Special case Caesar cipher with shift=13 (self-inverse)
+
+### 🔬 Analysis & Cracking Tools
+
+- 🔨 **Brute Force Decryption** - Try all 25 possible shifts automatically
+- 📊 **Frequency Analysis** - Analyze letter distribution with visual bar charts
+- 💡 **Educational Insights** - Learn about cipher vulnerabilities
+
+### 📦 Batch Processing
+
+- 📂 **Batch Encryption** - Encrypt multiple files in one operation
+- 📂 **Batch Decryption** - Decrypt multiple files simultaneously
+- ⏱️ **Performance Tracking** - See encryption/decryption time
+
+### 🛠️ Smart Features
+
+- 🏷️ **Auto File Extensions** - Automatically adds/removes `.enc` extension
+- 📈 **File Statistics** - View file size, character count, lines
+- 👁️ **File Viewer** - Preview file contents in the app
+- ✅ **Input Validation** - Robust error handling throughout
 
 ## What is Caesar Cipher?
 
@@ -21,6 +38,13 @@ The Caesar Cipher is one of the oldest and simplest encryption techniques. It's 
 ```text
 Plain:  HELLO WORLD
 Cipher: KHOOR ZRUOG
+```
+
+### ROT13 Example
+
+```text
+Plain:  HELLO WORLD
+ROT13:  URYYB JBEYQ
 ```
 
 ## How to Use
@@ -38,67 +62,143 @@ gcc caesar-cipher.c -o caesar-cipher
 caesar-cipher.exe      # Windows
 ```
 
-### 3. Menu Options
+### 3. Enhanced Menu Options
 
-- **Option 1: Encrypt a file**
-  - Provide input filename
-  - Provide output filename
-  - Enter shift value (1-25)
-  - File will be encrypted!
+**Basic Operations:**
 
-- **Option 2: Decrypt a file**
-  - Provide encrypted filename
-  - Provide output filename
-  - Enter the same shift value used for encryption
-  - File will be decrypted!
+1. 🔒 Encrypt a file
+2. 🔓 Decrypt a file
+3. 🔨 Brute force decryption (try all shifts)
 
-- **Option 3: View file content**
-  - View any text file's content
+**Analysis Tools:**
+4. 📊 Frequency analysis
+5. 🔄 ROT13 encryption/decryption
 
-- **Option 4: About Caesar Cipher**
-  - Learn more about the algorithm
+**Batch Operations:**
+6. 📂 Batch encrypt multiple files
+7. 📂 Batch decrypt multiple files
 
-## Example Usage
+**Utilities:**
+8. 👁️ View file content
+9. 📈 File statistics
+10. 📚 About Caesar Cipher
+11. 🚪 Exit
+
+## 🎯 Example Workflows
 
 ### Encrypting a File
 
-1. Create a file called `secret.txt` with some text
-2. Run the program and select option 1
-3. Input file: `sample.txt`
-4. Output file: `encrypted.txt`
-5. Shift value: `5`
-6. Your file is now encrypted! ✅
+1. Select option 1
+2. Input file: `sample.txt`
+3. Output file: Press Enter (auto creates `sample.txt.enc`)
+4. Shift value: `5`
+5. Done! See statistics and timing
 
-### Decrypting a File
+### Cracking an Encrypted File
 
-1. Run the program and select option 2
-2. Input file: `encrypted.txt`
-3. Output file: `decrypted.txt`
-4. Shift value: `5` (same as encryption)
-5. Your file is now decrypted! ✅
+1. Select option 3 (Brute force)
+2. Input encrypted file
+3. View all 25 possible decryptions
+4. Identify the readable one!
 
-## Sample Files
+### Analyzing Letter Frequency
 
-A `sample.txt` file is included for testing. Try encrypting it!
+1. Select option 4
+2. Enter filename
+3. See visual bar chart of letter distribution
+4. Use this to identify common patterns
+
+### Batch Processing
+
+1. Select option 6 (Batch encrypt)
+2. Enter number of files
+3. Enter each filename
+4. Enter shift value
+5. All files encrypted with timing!
+
+## 🆕 New Features Explained
+
+### 1. Brute Force Decryption
+
+Don't know the shift? No problem! This feature tries all 25 possible shifts and shows you the first 60 characters of each attempt. Look for readable text!
+
+### 2. Frequency Analysis
+
+Shows:
+
+- Total letter count
+- Frequency of each letter (count and percentage)
+- Visual bar chart representation
+- Comparison to common English letters (E, T, A, O, I, N)
+
+### 3. Auto File Extensions
+
+- Encrypting: `document.txt` → `document.txt.enc`
+- Decrypting: `document.txt.enc` → `document.txt`
+- Smart detection and removal
+
+### 4. Batch Processing
+
+Process multiple files at once:
+
+- Enter how many files
+- Provide all filenames
+- One shift value for all
+- See progress and results
+
+### 5. File Statistics
+
+View detailed info:
+
+- File size in bytes
+- Total character count
+- Alphabetic letter count
+- Number of lines
+
+### 6. Performance Tracking
+
+- See encryption/decryption time
+- Useful for large files
+- Displayed in seconds with precision
+
+## Sample File
+
+A `sample.txt` file is included for testing all features!
 
 ## Technical Details
 
 - **Algorithm**: Caesar Cipher (Substitution Cipher)
-- **Supported Characters**: A-Z, a-z (uppercase and lowercase)
-- **Non-alphabetic Characters**: Preserved as-is (numbers, spaces, punctuation)
-- **Shift Range**: 1-25 (26 would result in no change)
+- **Supported Characters**: A-Z, a-z (case preserved)
+- **Non-alphabetic Characters**: Preserved unchanged
+- **Shift Range**: 1-25
+- **ROT13**: Special case with shift=13 (self-inverse property)
 
 ## Learning Concepts
 
-- File I/O operations (`fopen`, `fclose`, `fgetc`, `fputc`)
-- Character manipulation and ASCII values
-- Modular arithmetic for wrapping
-- Menu-driven program design
-- Input validation and error handling
-- String processing
+- File I/O operations
+- Character manipulation and ASCII
+- Modular arithmetic
+- Menu-driven programming
+- Batch processing
+- Algorithm analysis and weaknesses
+- Frequency analysis in cryptography
+- Performance measurement
 
 ## Security Note
 
-⚠️ **Educational Purpose Only**: The Caesar Cipher is NOT secure for real-world use as it can be easily broken with frequency analysis or brute force (only 25 possible keys). This project is for learning file I/O and basic cryptography concepts.
+⚠️ **Educational Purpose Only**: The Caesar Cipher is NOT secure for real-world use:
+
+- Only 25 possible keys (trivial brute force)
+- Vulnerable to frequency analysis
+- Pattern preservation reveals structure
+- This project demonstrates why simple ciphers are weak!
+
+## Why This Project is Educational
+
+1. **Learn Cryptography Basics** - Understand substitution ciphers
+2. **See Cipher Weaknesses** - Brute force and frequency analysis demonstrate vulnerability
+3. **File I/O Practice** - Work with reading/writing files
+4. **Algorithm Implementation** - Practice modular arithmetic
+5. **User Interface** - Create comprehensive menu systems
 
 Enjoy learning about cryptography! 🔐
